@@ -460,9 +460,8 @@ class ImagePainterState extends State<ImagePainter> {
     } else {
       _image = await _renderImage();
     }
-    final byteData = await (_image.toByteData(format: ui.ImageByteFormat.png)
-        as FutureOr<ByteData>);
-    return byteData.buffer.asUint8List();
+    final byteData = await (_image.toByteData(format: ui.ImageByteFormat.png));
+    return byteData?.buffer.asUint8List();
   }
 
   ///Cancels or removes the last [PaintHistory].
