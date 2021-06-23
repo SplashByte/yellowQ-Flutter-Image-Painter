@@ -237,6 +237,7 @@ class ImagePainterState extends State<ImagePainter> {
   late TextEditingController _textController;
   Offset? _start, _end;
   int _strokeMultiplier = 1;
+
   @override
   void initState() {
     super.initState();
@@ -596,9 +597,9 @@ class ImagePainterState extends State<ImagePainter> {
     } else {
       _convertedImage = await _renderImage();
     }
-    final byteData = await (_convertedImage.toByteData(
-        format: ui.ImageByteFormat.png) as FutureOr<ByteData>);
-    return byteData.buffer.asUint8List();
+    final byteData =
+        await _convertedImage.toByteData(format: ui.ImageByteFormat.png);
+    return byteData?.buffer.asUint8List();
   }
 
   void _openTextDialog() {
