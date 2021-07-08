@@ -1,4 +1,4 @@
-name: image_painter
+name: image_painter_extended
 publish_to: none
 description: A flutter package for drawing over images. Supports color,
   strokeWidth, different paintModes and exporting image.
