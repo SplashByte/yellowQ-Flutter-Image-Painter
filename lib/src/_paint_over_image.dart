@@ -138,6 +138,7 @@ class ImagePainter extends StatefulWidget {
     Widget? clearAllIcon,
     Widget? colorIcon,
     bool? controlsAtTop,
+    bool? isSignature,
   }) {
     return ImagePainter._(
       key: key,
@@ -152,13 +153,14 @@ class ImagePainter extends StatefulWidget {
       colorIcon: colorIcon,
       clearAllIcon: clearAllIcon,
       controlsAtTop: controlsAtTop ?? true,
+      isSignature: isSignature??false,
     );
   }
 
   ///Constructor for signature painting.
   factory ImagePainter.signature(
       {required Key key,
-        Uint8List? signature,
+      Uint8List? signature,
       Color? signatureBgColor,
       double? height,
       double? width,
@@ -250,15 +252,14 @@ class ImagePainterState extends State<ImagePainter> {
   Offset? _start, _end;
   int _strokeMultiplier = 1;
 
-  Controller? controllerInput;
-
-  ImagePainterState({this.controllerInput});
 
   @override
   void initState() {
     super.initState();
     _resolveAndConvertImage();
-    _controller = ValueNotifier<Controller>(controllerInput ?? Controller());
+    _controller = ValueNotifier<Controller>(Controller(
+      mode: PaintMode.freeStyle
+    ));
     _textController = TextEditingController();
   }
 
