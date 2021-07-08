@@ -36,22 +36,22 @@ class ImagePainter extends StatefulWidget {
     this.controlsAtTop = true,
     this.signatureBackgroundColor,
     this.colors,
-    this.controllerInput
   }) : super(key: key);
 
   ///Constructor for loading image from network url.
-  factory ImagePainter.network(String url,
-      {required Key key,
-      double? height,
-      double? width,
-      Widget? placeholderWidget,
-      bool? scalable,
-      List<Color>? colors,
-      Widget? brushIcon,
-      Widget? undoIcon,
-      Widget? clearAllIcon,
-      Widget? colorIcon,
-      Controller? controllerInput}) {
+  factory ImagePainter.network(
+    String url, {
+    required Key key,
+    double? height,
+    double? width,
+    Widget? placeholderWidget,
+    bool? scalable,
+    List<Color>? colors,
+    Widget? brushIcon,
+    Widget? undoIcon,
+    Widget? clearAllIcon,
+    Widget? colorIcon,
+  }) {
     return ImagePainter._(
       key: key,
       networkUrl: url,
@@ -63,23 +63,23 @@ class ImagePainter extends StatefulWidget {
       undoIcon: undoIcon,
       colorIcon: colorIcon,
       clearAllIcon: clearAllIcon,
-      controllerInput: controllerInput,
     );
   }
 
   ///Constructor for loading image from assetPath.
-  factory ImagePainter.asset(String path,
-      {required Key key,
-      double? height,
-      double? width,
-      bool? scalable,
-      Widget? placeholderWidget,
-      List<Color>? colors,
-      Widget? brushIcon,
-      Widget? undoIcon,
-      Widget? clearAllIcon,
-      Widget? colorIcon,
-        Controller? controllerInput}) {
+  factory ImagePainter.asset(
+    String path, {
+    required Key key,
+    double? height,
+    double? width,
+    bool? scalable,
+    Widget? placeholderWidget,
+    List<Color>? colors,
+    Widget? brushIcon,
+    Widget? undoIcon,
+    Widget? clearAllIcon,
+    Widget? colorIcon,
+  }) {
     return ImagePainter._(
       key: key,
       assetPath: path,
@@ -92,23 +92,23 @@ class ImagePainter extends StatefulWidget {
       undoIcon: undoIcon,
       colorIcon: colorIcon,
       clearAllIcon: clearAllIcon,
-      controllerInput: controllerInput,
     );
   }
 
   ///Constructor for loading image from [File].
-  factory ImagePainter.file(File file,
-      {required Key key,
-      double? height,
-      double? width,
-      bool? scalable,
-      Widget? placeholderWidget,
-      List<Color>? colors,
-      Widget? brushIcon,
-      Widget? undoIcon,
-      Widget? clearAllIcon,
-      Widget? colorIcon,
-        Controller? controllerInput}) {
+  factory ImagePainter.file(
+    File file, {
+    required Key key,
+    double? height,
+    double? width,
+    bool? scalable,
+    Widget? placeholderWidget,
+    List<Color>? colors,
+    Widget? brushIcon,
+    Widget? undoIcon,
+    Widget? clearAllIcon,
+    Widget? colorIcon,
+  }) {
     return ImagePainter._(
       key: key,
       file: file,
@@ -121,23 +121,24 @@ class ImagePainter extends StatefulWidget {
       undoIcon: undoIcon,
       colorIcon: colorIcon,
       clearAllIcon: clearAllIcon,
-      controllerInput: controllerInput,
     );
   }
 
   ///Constructor for loading image from memory.
-  factory ImagePainter.memory(Uint8List byteArray,
-      {required Key key,
-      double? height,
-      double? width,
-      bool? scalable,
-      Widget? placeholderWidget,
-      List<Color>? colors,
-      Widget? brushIcon,
-      Widget? undoIcon,
-      Widget? clearAllIcon,
-      Widget? colorIcon,
-        Controller? controllerInput}) {
+  factory ImagePainter.memory(
+    Uint8List byteArray, {
+    required Key key,
+    double? height,
+    double? width,
+    bool? scalable,
+    Widget? placeholderWidget,
+    List<Color>? colors,
+    Widget? brushIcon,
+    Widget? undoIcon,
+    Widget? clearAllIcon,
+    Widget? colorIcon,
+    bool? controlsAtTop,
+  }) {
     return ImagePainter._(
       key: key,
       byteArray: byteArray,
@@ -150,13 +151,14 @@ class ImagePainter extends StatefulWidget {
       undoIcon: undoIcon,
       colorIcon: colorIcon,
       clearAllIcon: clearAllIcon,
-      controllerInput: controllerInput,
+      controlsAtTop: controlsAtTop ?? true,
     );
   }
 
   ///Constructor for signature painting.
   factory ImagePainter.signature(
       {required Key key,
+        Uint8List? signature,
       Color? signatureBgColor,
       double? height,
       double? width,
@@ -164,9 +166,9 @@ class ImagePainter extends StatefulWidget {
       Widget? brushIcon,
       Widget? undoIcon,
       Widget? clearAllIcon,
-      Widget? colorIcon,
-        Controller? controllerInput}) {
+      Widget? colorIcon}) {
     return ImagePainter._(
+      byteArray: signature,
       key: key,
       height: height,
       width: width,
@@ -178,7 +180,6 @@ class ImagePainter extends StatefulWidget {
       undoIcon: undoIcon,
       colorIcon: colorIcon,
       clearAllIcon: clearAllIcon,
-      controllerInput: controllerInput,
     );
   }
 
@@ -232,8 +233,6 @@ class ImagePainter extends StatefulWidget {
   ///`true` represents top.
   final bool controlsAtTop;
 
-  final Controller? controllerInput;
-
   @override
   ImagePainterState createState() => ImagePainterState();
 }
@@ -253,14 +252,13 @@ class ImagePainterState extends State<ImagePainter> {
 
   Controller? controllerInput;
 
-
   ImagePainterState({this.controllerInput});
 
   @override
   void initState() {
     super.initState();
     _resolveAndConvertImage();
-    _controller = ValueNotifier<Controller>(controllerInput??Controller());
+    _controller = ValueNotifier<Controller>(controllerInput ?? Controller());
     _textController = TextEditingController();
   }
 
