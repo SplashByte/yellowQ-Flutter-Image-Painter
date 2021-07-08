@@ -36,6 +36,7 @@ class ImagePainter extends StatefulWidget {
     this.controlsAtTop = true,
     this.signatureBackgroundColor,
     this.colors,
+    this.controllerInput
   }) : super(key: key);
 
   ///Constructor for loading image from network url.
@@ -49,7 +50,8 @@ class ImagePainter extends StatefulWidget {
       Widget? brushIcon,
       Widget? undoIcon,
       Widget? clearAllIcon,
-      Widget? colorIcon}) {
+      Widget? colorIcon,
+      Controller? controllerInput}) {
     return ImagePainter._(
       key: key,
       networkUrl: url,
@@ -61,6 +63,7 @@ class ImagePainter extends StatefulWidget {
       undoIcon: undoIcon,
       colorIcon: colorIcon,
       clearAllIcon: clearAllIcon,
+      controllerInput: controllerInput,
     );
   }
 
@@ -75,7 +78,8 @@ class ImagePainter extends StatefulWidget {
       Widget? brushIcon,
       Widget? undoIcon,
       Widget? clearAllIcon,
-      Widget? colorIcon}) {
+      Widget? colorIcon,
+        Controller? controllerInput}) {
     return ImagePainter._(
       key: key,
       assetPath: path,
@@ -88,6 +92,7 @@ class ImagePainter extends StatefulWidget {
       undoIcon: undoIcon,
       colorIcon: colorIcon,
       clearAllIcon: clearAllIcon,
+      controllerInput: controllerInput,
     );
   }
 
@@ -102,7 +107,8 @@ class ImagePainter extends StatefulWidget {
       Widget? brushIcon,
       Widget? undoIcon,
       Widget? clearAllIcon,
-      Widget? colorIcon}) {
+      Widget? colorIcon,
+        Controller? controllerInput}) {
     return ImagePainter._(
       key: key,
       file: file,
@@ -115,6 +121,7 @@ class ImagePainter extends StatefulWidget {
       undoIcon: undoIcon,
       colorIcon: colorIcon,
       clearAllIcon: clearAllIcon,
+      controllerInput: controllerInput,
     );
   }
 
@@ -129,7 +136,8 @@ class ImagePainter extends StatefulWidget {
       Widget? brushIcon,
       Widget? undoIcon,
       Widget? clearAllIcon,
-      Widget? colorIcon}) {
+      Widget? colorIcon,
+        Controller? controllerInput}) {
     return ImagePainter._(
       key: key,
       byteArray: byteArray,
@@ -142,6 +150,7 @@ class ImagePainter extends StatefulWidget {
       undoIcon: undoIcon,
       colorIcon: colorIcon,
       clearAllIcon: clearAllIcon,
+      controllerInput: controllerInput,
     );
   }
 
@@ -155,7 +164,8 @@ class ImagePainter extends StatefulWidget {
       Widget? brushIcon,
       Widget? undoIcon,
       Widget? clearAllIcon,
-      Widget? colorIcon}) {
+      Widget? colorIcon,
+        Controller? controllerInput}) {
     return ImagePainter._(
       key: key,
       height: height,
@@ -168,6 +178,7 @@ class ImagePainter extends StatefulWidget {
       undoIcon: undoIcon,
       colorIcon: colorIcon,
       clearAllIcon: clearAllIcon,
+      controllerInput: controllerInput,
     );
   }
 
@@ -221,6 +232,8 @@ class ImagePainter extends StatefulWidget {
   ///`true` represents top.
   final bool controlsAtTop;
 
+  final Controller? controllerInput;
+
   @override
   ImagePainterState createState() => ImagePainterState();
 }
@@ -237,6 +250,11 @@ class ImagePainterState extends State<ImagePainter> {
   late TextEditingController _textController;
   Offset? _start, _end;
   int _strokeMultiplier = 1;
+
+  Controller? controllerInput;
+
+
+  ImagePainterState({this.controllerInput});
 
   @override
   void initState() {
