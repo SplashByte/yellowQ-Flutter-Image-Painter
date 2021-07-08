@@ -35,7 +35,6 @@ class ImagePainter extends StatefulWidget {
     this.isSignature = false,
     this.controlsAtTop = true,
     this.controlsOn = true,
-    this.showBorder = true,
     this.signatureBackgroundColor,
     this.colors,
   }) : super(key: key);
@@ -141,7 +140,6 @@ class ImagePainter extends StatefulWidget {
     Widget? colorIcon,
     bool? controlsAtTop,
     bool? controlsOn,
-    bool? showBorder,
   }) {
     return ImagePainter._(
       key: key,
@@ -157,7 +155,6 @@ class ImagePainter extends StatefulWidget {
       clearAllIcon: clearAllIcon,
       controlsAtTop: controlsAtTop ?? true,
       controlsOn: controlsOn ?? true,
-      showBorder: showBorder??false,
     );
   }
 
@@ -239,11 +236,8 @@ class ImagePainter extends StatefulWidget {
   ///`true` represents top.
   final bool controlsAtTop;
 
-  ///Define if there are controls
+  ///Define if there are Controlls
   final bool controlsOn;
-
-  ///Define if there are borders shown in image-mody
-  final bool showBorder;
 
   @override
   ImagePainterState createState() => ImagePainterState();
@@ -382,49 +376,41 @@ class ImagePainterState extends State<ImagePainter> {
       child: Column(
         children: [
           if (widget.controlsOn && widget.controlsAtTop) _buildControls(),
-          Card(
-            elevation: 0,
-            shape:
-            widget.showBorder? RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-                side: BorderSide(
-                    color: Theme.of(context).accentColor, width: 3)): null,
-            child: Expanded(
-              child: FittedBox(
-                alignment: FractionalOffset.center,
-                child: ClipRect(
-                  child: ValueListenableBuilder<Controller?>(
-                    valueListenable: _controller,
-                    builder: (_, controller, __) {
-                      return ImagePainterTransformer(
-                        maxScale: 2.4,
-                        minScale: 1,
-                        panEnabled: controller!.mode == PaintMode.none,
-                        scaleEnabled: widget.isScalable!,
-                        onInteractionUpdate: (details) =>
-                            _scaleUpdateGesture(details, controller),
-                        onInteractionEnd: (details) =>
-                            _scaleEndGesture(details, controller),
-                        child: CustomPaint(
-                          size: Size(_image!.width.toDouble(),
-                              _image!.height.toDouble()),
-                          willChange: true,
-                          isComplex: true,
-                          painter: DrawImage(
-                            image: _image,
-                            points: _points,
-                            paintHistory: _paintHistory,
-                            isDragging: _inDrag,
-                            update: UpdatePoints(
-                                start: _start,
-                                end: _end,
-                                painter: _painter,
-                                mode: controller.mode),
-                          ),
+          Expanded(
+            child: FittedBox(
+              alignment: FractionalOffset.center,
+              child: ClipRect(
+                child: ValueListenableBuilder<Controller?>(
+                  valueListenable: _controller,
+                  builder: (_, controller, __) {
+                    return ImagePainterTransformer(
+                      maxScale: 2.4,
+                      minScale: 1,
+                      panEnabled: controller!.mode == PaintMode.none,
+                      scaleEnabled: widget.isScalable!,
+                      onInteractionUpdate: (details) =>
+                          _scaleUpdateGesture(details, controller),
+                      onInteractionEnd: (details) =>
+                          _scaleEndGesture(details, controller),
+                      child: CustomPaint(
+                        size: Size(_image!.width.toDouble(),
+                            _image!.height.toDouble()),
+                        willChange: true,
+                        isComplex: true,
+                        painter: DrawImage(
+                          image: _image,
+                          points: _points,
+                          paintHistory: _paintHistory,
+                          isDragging: _inDrag,
+                          update: UpdatePoints(
+                              start: _start,
+                              end: _end,
+                              painter: _painter,
+                              mode: controller.mode),
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
