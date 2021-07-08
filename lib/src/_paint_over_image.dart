@@ -154,7 +154,7 @@ class ImagePainter extends StatefulWidget {
       colorIcon: colorIcon,
       clearAllIcon: clearAllIcon,
       controlsAtTop: controlsAtTop ?? true,
-      controlsOn: controlsOn ?? true ,
+      controlsOn: controlsOn ?? true,
     );
   }
 
@@ -256,13 +256,13 @@ class ImagePainterState extends State<ImagePainter> {
   Offset? _start, _end;
   int _strokeMultiplier = 1;
 
-
   @override
   void initState() {
     super.initState();
     _resolveAndConvertImage();
     _controller = ValueNotifier<Controller>(Controller(
-      mode: PaintMode.freeStyle
+      mode: PaintMode.freeStyle,
+      color: Colors.black,
     ));
     _textController = TextEditingController();
   }
