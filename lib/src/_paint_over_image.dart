@@ -34,6 +34,7 @@ class ImagePainter extends StatefulWidget {
     this.undoIcon,
     this.isSignature = false,
     this.controlsAtTop = true,
+    this.controlsOn = true,
     this.signatureBackgroundColor,
     this.colors,
   }) : super(key: key);
@@ -138,7 +139,7 @@ class ImagePainter extends StatefulWidget {
     Widget? clearAllIcon,
     Widget? colorIcon,
     bool? controlsAtTop,
-    bool? isSignature,
+    bool? controlsOn,
   }) {
     return ImagePainter._(
       key: key,
@@ -153,7 +154,7 @@ class ImagePainter extends StatefulWidget {
       colorIcon: colorIcon,
       clearAllIcon: clearAllIcon,
       controlsAtTop: controlsAtTop ?? true,
-      isSignature: isSignature??false,
+      controlsOn: controlsOn ?? true ,
     );
   }
 
@@ -234,6 +235,9 @@ class ImagePainter extends StatefulWidget {
   ///Define where the controls is located.
   ///`true` represents top.
   final bool controlsAtTop;
+
+  ///Define if there are Controlls
+  final bool controlsOn;
 
   @override
   ImagePainterState createState() => ImagePainterState();
@@ -371,7 +375,7 @@ class ImagePainterState extends State<ImagePainter> {
       width: widget.width ?? double.maxFinite,
       child: Column(
         children: [
-          if (widget.controlsAtTop) _buildControls(),
+          if (widget.controlsOn && widget.controlsAtTop) _buildControls(),
           Expanded(
             child: FittedBox(
               alignment: FractionalOffset.center,
@@ -411,7 +415,7 @@ class ImagePainterState extends State<ImagePainter> {
               ),
             ),
           ),
-          if (!widget.controlsAtTop) _buildControls(),
+          if (widget.controlsOn && !widget.controlsAtTop) _buildControls(),
           SizedBox(height: MediaQuery.of(context).padding.bottom)
         ],
       ),
