@@ -260,7 +260,7 @@ class ImagePainterState extends State<ImagePainter> {
   void initState() {
     super.initState();
     _resolveAndConvertImage();
-    _controller = ValueNotifier<Controller>(Controller());
+    _controller = ValueNotifier<Controller>(controllerInput??Controller());
     _textController = TextEditingController();
   }
 
